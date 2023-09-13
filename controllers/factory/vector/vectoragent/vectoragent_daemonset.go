@@ -85,24 +85,24 @@ func (ctrl *Controller) generateVectorAgentVolume() []corev1.Volume {
 		{
 			Name: "data",
 			VolumeSource: corev1.VolumeSource{
-				HostPath: &corev1.HostPathVolumeSource{
-					Path: ctrl.Vector.Spec.Agent.DataDir,
+				EmptyDir: &corev1.EmptyDirVolumeSource{
+					//Path: ctrl.Vector.Spec.Agent.DataDir,
 				},
 			},
 		},
 		{
 			Name: "procfs",
 			VolumeSource: corev1.VolumeSource{
-				HostPath: &corev1.HostPathVolumeSource{
-					Path: "/proc",
+				EmptyDir: &corev1.EmptyDirVolumeSource{
+					//Path: "/proc",
 				},
 			},
 		},
 		{
 			Name: "sysfs",
 			VolumeSource: corev1.VolumeSource{
-				HostPath: &corev1.HostPathVolumeSource{
-					Path: "/sys",
+				EmptyDir: &corev1.EmptyDirVolumeSource{
+					//Path: "/sys",
 				},
 			},
 		},
@@ -134,14 +134,16 @@ func (ctrl *Controller) generateVectorAgentVolumeMounts() []corev1.VolumeMount {
 			Name:      "data",
 			MountPath: "/vector-data-dir",
 		},
-		{
-			Name:      "procfs",
-			MountPath: "/host/proc",
-		},
-		{
-			Name:      "sysfs",
-			MountPath: "/host/sys",
-		},
+		//{
+		//	Name:      "procfs",
+		//	MountPath: "/host/proc",
+		//	ReadOnly:  true,
+		//},
+		//{
+		//	Name:      "sysfs",
+		//	MountPath: "/host/sys",
+		//	ReadOnly:  true,
+		//},
 	}...)
 
 	if ctrl.Vector.Spec.Agent.CompressConfigFile {

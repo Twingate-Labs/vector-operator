@@ -68,8 +68,8 @@ func (ctrl *Controller) SetDefault() {
 			{
 				Name: "var-lib",
 				VolumeSource: corev1.VolumeSource{
-					HostPath: &corev1.HostPathVolumeSource{
-						Path: "/var/lib/",
+					EmptyDir: &corev1.EmptyDirVolumeSource{
+						//Path: "/var/lib/",
 					},
 				},
 			},
@@ -81,15 +81,18 @@ func (ctrl *Controller) SetDefault() {
 			{
 				Name:      "var-log",
 				MountPath: "/var/log/",
+				ReadOnly:  true,
 			},
-			{
-				Name:      "journal",
-				MountPath: "/run/log/journal",
-			},
-			{
-				Name:      "var-lib",
-				MountPath: "/var/lib/",
-			},
+			//{
+			//	Name:      "journal",
+			//	MountPath: "/run/log/journal",
+			//	ReadOnly:  true,
+			//},
+			//{
+			//	Name:      "var-lib",
+			//	MountPath: "/var/lib/",
+			//	ReadOnly:  true,
+			//},
 		}
 	}
 	if ctrl.Vector.Spec.Agent.CompressConfigFile && ctrl.Vector.Spec.Agent.ConfigReloaderImage == "" {

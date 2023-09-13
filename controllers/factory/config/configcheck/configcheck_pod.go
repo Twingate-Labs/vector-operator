@@ -93,24 +93,24 @@ func (cc *ConfigCheck) generateVectorConfigCheckVolume() []corev1.Volume {
 		{
 			Name: "var-lib",
 			VolumeSource: corev1.VolumeSource{
-				HostPath: &corev1.HostPathVolumeSource{
-					Path: "/var/lib/",
+				EmptyDir: &corev1.EmptyDirVolumeSource{
+					//Path: "/var/lib/",
 				},
 			},
 		},
 		{
 			Name: "procfs",
 			VolumeSource: corev1.VolumeSource{
-				HostPath: &corev1.HostPathVolumeSource{
-					Path: "/proc",
+				EmptyDir: &corev1.EmptyDirVolumeSource{
+					//Path: "/proc",
 				},
 			},
 		},
 		{
 			Name: "sysfs",
 			VolumeSource: corev1.VolumeSource{
-				HostPath: &corev1.HostPathVolumeSource{
-					Path: "/sys",
+				EmptyDir: &corev1.EmptyDirVolumeSource{
+					//Path: "/sys",
 				},
 			},
 		},
@@ -143,19 +143,23 @@ func (cc *ConfigCheck) generateVectorConfigCheckVolumeMounts() []corev1.VolumeMo
 		{
 			Name:      "var-log",
 			MountPath: "/var/log/",
+			ReadOnly:  true,
 		},
-		{
-			Name:      "var-lib",
-			MountPath: "/var/lib/",
-		},
-		{
-			Name:      "procfs",
-			MountPath: "/host/proc",
-		},
-		{
-			Name:      "sysfs",
-			MountPath: "/host/sys",
-		},
+		//{
+		//	Name:      "var-lib",
+		//	MountPath: "/var/lib/",
+		//	ReadOnly:  true,
+		//},
+		//{
+		//	Name:      "procfs",
+		//	MountPath: "/host/proc",
+		//	ReadOnly:  true,
+		//},
+		//{
+		//	Name:      "sysfs",
+		//	MountPath: "/host/sys",
+		//	ReadOnly:  true,
+		//},
 	}
 
 	if cc.CompressedConfig {
